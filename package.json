@@ -1,0 +1,22 @@
+{
+  "name": "Tic Tac Toe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Salman",
+  "window": {
+	"title":"Tic Tac Toe",
+    "toolbar": false,
+	"frame":false,
+	"width":930,
+	"height":650,
+	"transparent":true
+  },
+  "license": "ISC",
+  "dependencies": {
+    "pretty-bytes": "^1.0.2"
+  }
+}
