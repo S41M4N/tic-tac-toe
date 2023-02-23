@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+body {
+		margin:0;
+		padding:0;
+		background:transparent;
+		font-family:calibri;
+	}
+	@keyframes out {
+		from { opacity:1; }
+		to { opacity: 0;  }
+	}
+	@-webkit-keyframes out {
+		from { opacity:1; }
+		to { opacity: 0; }
+	}
+	#img {
+		width:60%;
+		max-width: 500px;
+		height: auto;
+		position: absolute;
+		top: 0;
+		bottom:5%;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	#site {
+		position:absolute;
+		bottom:1px;
+		left:0;
+		right:10px;
+		color:#999;
+		bottom:-10px;
+		text-align: right;
+	}
+	#load {
+		position: absolute;
+		width: 700px;
+		height: 249px;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		animation:out 0.2s 4s;
+		-webkit-animation:out 0.2s 4s;
+		animation-fill-mode: forwards;
+		-webkit-animation-fill-mode: forwards;
+		background:#111;
+	}
+	#loading {
+		position:absolute;
+		bottom:1px;
+		left:10px;
+		color:#999;
+		bottom:-10px;
+	}
+</style>
+</head>
+<body>
+<div id="load">
+	<img src="logo.png" id="img" />
+	<p id="loading">Loading.</p>
+	<p id="site">http://SalmanInc.science</p>
+</div>
+</body>
+</html>
+<script>	
+	var loading = document.getElementById('loading');
+	var dot = 0;
+	
+	setInterval(function(){
+		loading.innerHTML +=".";
+		dot++;
+		if(dot == 3){
+			loading.innerHTML = "Loading.";
+			dot = 0;
+		}
+	},500);
+	
+	var PlayerOneName = localStorage.getItem("PlayerOneName");
+	var PlayerTwoName = localStorage.getItem("PlayerTwoName");
+		setTimeout(function(){
+			if ((PlayerOneName == null || 0) || (PlayerTwoName == null || 0)){
+			document.location.href="info.html";
+		} else {
+			document.location.href="index.html";
+		}
+		},4700);
+</script>

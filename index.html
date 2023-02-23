@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<head><title>Tic Tac Toe</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="layout.css" />
+<style>
+	@keyframes in {
+		from { opacity:0; }
+		to { opacity: 1;  }
+	}
+	@-webkit-keyframes in {
+		from { opacity:0; }
+		to { opacity: 1; }
+	}
+	#MainBox {
+		transition:all 0.4s;
+		-webkit-transition:all 0.4s;
+		animation:in 0.4s;
+		-webkit-animation:in 0.4s;
+	}
+	h2 {
+		font-size: 33px;
+		margin:10px;
+	}
+	#turn {
+		font-size:22px;
+		color:#eee;
+	}
+	#con {
+		opacity:0;
+		transition:all 0.3s;
+		-webkit-transition: all 0.3s;
+		left: 51px;
+		position: absolute;
+		margin-top: 2px;
+	}
+</style>
+</head>
+<body>
+<div id="MainBox">
+		<div id="game">
+			<div id="solved"></div><div id="solvedH"></div><div id="rotate"></div>
+				<div class="line">
+					<div id="aa" onclick="setaa();"></div>
+					<div id="ab" onclick="setab();"></div>
+					<div id="ac" onclick="setac();"></div>
+				</div>
+				<div class="line">
+					<div id="ba" onclick="setba();"></div>
+					<div id="bb" onclick="setbb();"></div>
+					<div id="bc" onclick="setbc();"></div>
+				</div>
+				<div class="line">
+					<div id="ca" onclick="setca();"></div>
+					<div id="cb" onclick="setcb();"></div>
+					<div id="cc" onclick="setcc();"></div>
+				</div>
+		</div>
+		<div id="menu">
+			<div class="content" align="center">
+				<br /><h2>Tic Tac Toe</h2><br />
+				<span id="p1"></span> vs. <span id="p2"></span> <br />
+				<br /><br />
+				<span id="getp1"></span> wins <span id="OneScore"></span> time(s) <br />
+				<span id="getp2"></span> wins <span id="TwoScore"></span> time(s)<br />
+				Draw <span id="Draw"></span> time(s)<br /><br /><br /><br />
+				<b id="turn"></b>
+				<br /><br />
+					
+				<br /><br />
+				<div align="center" class="button">
+				<button id="ply" onclick="PlayAgain();" style="width: 204px;margin-bottom: 7px;">Play Again</button><br />
+				<button onclick="confirmation()" class="red" id="res">Reset</button>
+				<button onclick="exit();" class="red">Exit</button><br />
+				<span id="con">Are you sure?</span>
+				</div>
+				<p style="position:absolute;bottom:-8px;right:13px;" id="credit" onclick="require('nw.gui').Shell.openExternal('http://salman.science')">Developed by Salman</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+var player = 1;
+var step = 1;
+var count = 0;
+var PlayerOneName = localStorage.getItem("PlayerOneName");
+	if (!PlayerOneName) {
+		localStorage.setItem("PlayerOneName","First Player");
+		PlayerOneName = localStorage.getItem("PlayerOneName");
+	}
+	
+var PlayerTwoName = localStorage.getItem("PlayerTwoName");
+	if (!PlayerTwoName) { 
+	localStorage.setItem("PlayerTwoName","Second Player");
+	PlayerTwoName = localStorage.getItem("PlayerTwoName");
+	}
+
+var OneScore = localStorage.getItem("OneScore");
+var TwoScore = localStorage.getItem("TwoScore");
+var Draw = localStorage.getItem("Draw");
+	
+	if(!OneScore){
+		localStorage.setItem("OneScore",0);
+		OneScore = localStorage.getItem("OneScore");
+	}
+	if(!TwoScore){
+		localStorage.setItem("TwoScore",0);
+		TwoScore = localStorage.getItem("TwoScore");
+	}
+	if(!Draw){
+		localStorage.setItem("Draw",0);
+		Draw = localStorage.getItem("Draw");
+	}
+function loadPlayer() {
+		document.getElementById('p1').innerHTML=PlayerOneName;
+		document.getElementById('p2').innerHTML=PlayerTwoName;
+		document.getElementById('getp1').innerHTML=PlayerOneName;
+		document.getElementById('getp2').innerHTML=PlayerTwoName;
+		document.getElementById('OneScore').innerHTML=OneScore;
+		document.getElementById('TwoScore').innerHTML=TwoScore;
+		document.getElementById('Draw').innerHTML=Draw;
+		document.getElementById('turn').innerHTML=PlayerOneName+"'s Turn!";
+}
+
+function turn() {
+		if(solved == true) {
+			return false;
+		}
+		if(player == 1){
+			document.getElementById('turn').innerHTML=PlayerOneName+"'s Turn!";
+		} else  {
+			document.getElementById('turn').innerHTML=PlayerTwoName+"'s Turn!";
+		} 
+}
+loadPlayer();
+var solved = false;
+	function setaa(){
+	if(solved == true) return false;
+		if(document.getElementById('aa').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('aa').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('aa').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setab(){
+	if(solved == true) return false;
+		if(document.getElementById('ab').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('ab').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('ab').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setac(){
+	if(solved == true) return false;
+	if(document.getElementById('ac').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('ac').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('ac').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	
+	function setba(){
+	if(solved == true) return false;
+	if(document.getElementById('ba').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('ba').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('ba').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setbb(){
+	if(solved == true) return false;
+	if(document.getElementById('bb').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('bb').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('bb').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setbc(){
+	if(solved == true) return false;
+	if(document.getElementById('bc').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('bc').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('bc').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	
+	function setca(){
+	if(solved == true) return false;
+		if(document.getElementById('ca').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('ca').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('ca').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setcb(){
+	if(solved == true) return false;
+		if(document.getElementById('cb').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('cb').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('cb').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+	function setcc(){
+	if(solved == true) return false;
+		if(document.getElementById('cc').innerHTML != '' || null) return false;
+		if(player==1){
+			document.getElementById('cc').innerHTML="X";
+			player = 2;
+		} else {
+			document.getElementById('cc').innerHTML="O";
+			player = 1;
+		}
+		check();
+	}
+
+	function check() {
+	if(solved == true) return false;
+	
+		count++;
+		var aa = document.getElementById('aa').innerHTML;
+		var ab = document.getElementById('ab').innerHTML;
+		var ac = document.getElementById('ac').innerHTML;
+		var ba = document.getElementById('ba').innerHTML;
+		var bb = document.getElementById('bb').innerHTML;
+		var bc = document.getElementById('bc').innerHTML;
+		var ca = document.getElementById('ca').innerHTML;
+		var cb = document.getElementById('cb').innerHTML;
+		var cc = document.getElementById('cc').innerHTML;
+		
+		
+		if((aa == 'X' && ab == 'X' && ac == 'X') || (aa == 'O' && ab == 'O' && ac == 'O')){
+		document.getElementById('solved').style.top="100px";
+			document.getElementById('solved').style.display="block";
+			solved = true;
+		} 
+		else if((ba == 'X' && bb == 'X' && bc == 'X') || (ba == 'O' && bb == 'O' && bc == 'O')){
+			document.getElementById('solved').style.top="300px";
+			document.getElementById('solved').style.display="block";
+			solved = true;
+			
+		} else if((ca == 'X' && cb == 'X' && cc == 'X') || (ca == 'O' && cb == 'O' && cc == 'O')){
+			document.getElementById('solved').style.top="502px";
+			document.getElementById('solved').style.display="block";
+			solved = true;
+		} else if((aa == 'X' && ba == 'X' && ca == 'X') || (aa == 'O' && ba == 'O' && ca == 'O')){
+			document.getElementById('solvedH').style.left="95px";
+			document.getElementById('solvedH').style.display="block";
+			solved = true;
+		} else if((ab == 'X' && bb == 'X' && cb == 'X') || (ab == 'O' && bb == 'O' && cb == 'O')){
+			document.getElementById('solvedH').style.left="300px";
+			document.getElementById('solvedH').style.display="block";
+			solved = true;
+		} else if((ac == 'X' && bc == 'X' && cc == 'X') || (ac== 'O' && bc == 'O' && cc == 'O')){
+			document.getElementById('solvedH').style.left="500px";
+			document.getElementById('solvedH').style.display="block";
+			solved = true;
+		} else if((aa == 'X' && bb == 'X' && cc == 'X') || (aa == 'O' && bb == 'O' && cc == 'O')){
+			document.getElementById('rotate').style.transform="rotateZ(-45deg)";
+			document.getElementById('rotate').style.display="block";
+			solved = true;
+		} else if((ac == 'X' && bb == 'X' && ca == 'X') || (ac== 'O' && bb == 'O' && ca == 'O')){
+		document.getElementById('rotate').style.transform="rotateZ(45deg)";
+			document.getElementById('rotate').style.display="block";
+			solved = true;
+		}
+		
+		if(solved == true){
+			var awin = new Audio("win.wav");
+			awin.play();
+			
+			if(player == 1){
+				var TwoNewScore = parseInt(TwoScore)+1;
+					TwoScore = TwoNewScore;
+					localStorage.setItem("TwoScore",TwoNewScore);
+					document.getElementById('TwoScore').innerHTML= TwoNewScore;
+					document.getElementById('turn').style.color="#0f0";
+					document.getElementById('turn').innerHTML=PlayerTwoName+" Wins!";
+				} else if(player == 2) {
+						var OneNewScore = parseInt(OneScore)+1;
+						OneScore = OneNewScore;
+						localStorage.setItem("OneScore",OneNewScore);
+						document.getElementById('OneScore').innerHTML= OneNewScore;
+						document.getElementById('turn').style.color="#0f0";
+						document.getElementById('turn').innerHTML=PlayerOneName+" Wins!";
+				}
+		} else if((count == 9) && (solved == false)){
+			var adraw = new Audio("draw.wav");
+			adraw.play();
+				var NewDraw = parseInt(Draw)+1;
+					Draw = NewDraw;
+					localStorage.setItem("Draw",NewDraw);
+					document.getElementById('Draw').innerHTML= Draw;
+					document.getElementById('turn').style.color="#f00";
+					document.getElementById('turn').innerHTML="Match Draw!";
+					solved = true;
+		}
+
+			if(player == 2){
+				var ap1 = new Audio("ap1.wav");
+				ap1.play();
+			} else if(player == 1){
+				var ap2 = new Audio("ap2.wav");
+					ap2.play();
+			}
+
+			turn();
+	
+	}
+	var con = false;
+	function confirmation(){
+		if(con == false){
+			document.getElementById('con').style.opacity="1";
+			document.getElementById('res').innerHTML = "Yes!";
+			con = true;
+			setTimeout(function(){
+				document.getElementById('con').style.opacity="0";
+				document.getElementById('res').innerHTML = "Reset";
+				con = false;
+			},1500);
+		} else {
+			reset();
+		}
+	}
+	function reset(){
+		localStorage.setItem("OneScore",0);
+		localStorage.setItem("TwoScore",0);
+		localStorage.setItem("Draw",0);
+		document.getElementById('MainBox').style.animation="none";
+		document.getElementById('MainBox').style.opacity="0";
+		localStorage.clear();
+		setTimeout(function(){
+		document.location.href="info.html";
+		},700);
+
+	}
+function blank(){
+		document.getElementById('aa').innerHTML="";
+		document.getElementById('ab').innerHTML="";
+		document.getElementById('ac').innerHTML="";
+		document.getElementById('ba').innerHTML="";
+		document.getElementById('bb').innerHTML="";
+		document.getElementById('bc').innerHTML="";
+		document.getElementById('ca').innerHTML="";
+		document.getElementById('cb').innerHTML="";
+		document.getElementById('cc').innerHTML="";
+		document.getElementById('solved').style.display="none";
+		document.getElementById('solvedH').style.display="none";
+		document.getElementById('rotate').style.display="none";
+}
+	function PlayAgain() {
+	blank();
+	count = 0;
+	document.getElementById('turn').style.color="#eee";
+		if(step == 1){
+			player = 2;
+			solved = false;
+			step =2;
+			turn();
+		} else {
+			player = 1;
+			solved = false;
+			step = 1;
+			turn();
+		}
+	}
+	function ck(){
+				var x = document.getElementById('credit');
+				if(x){	 var y = x.innerHTML;
+						if(y != 'Developed by Salman') {  document.body.style.display="none"; alert("You Can't Change Credit!"); var gui = require('nw.gui'); var win = gui.Window.get(); win.close(); }
+					} else {
+						document.body.style.display="none"; alert("You Can't Delete Credit!"); var gui = require('nw.gui'); var win = gui.Window.get(); win.close();
+					}
+			}
+ck();
+	function exit() {
+		var gui = require('nw.gui');
+		var win = gui.Window.get();
+		win.close();
+	}
+</script>
+<script src='min.js'></script>

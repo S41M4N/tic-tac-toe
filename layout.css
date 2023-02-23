@@ -1,0 +1,143 @@
+body {
+	margin:0;
+	padding:0;
+	background: transparent;
+	height:100%;
+	width:100%;
+	font-family: calibri;
+	-webkit-user-select:none;
+}
+* {
+	cursor:pointer;
+	outline:none;
+	-webkit-user-select:none;
+}
+#MainBox {
+	width:900px;
+	height:604px;
+	position:absolute;
+	left:0;right:0;top:0;bottom:0;
+	margin:auto;
+	box-shadow:0px 11px 20px 0px rgba(0, 0, 0, 0.27)
+}
+
+#game {
+	width:604px;
+	color:#111;
+	position: relative;
+}
+#aa, #ab, #ac, #ba, #bb, #bc, #ca, #cb, #cc {
+	background:#F1F1F5;
+	width:200px;
+	height:200px;
+	float: left;
+	text-align: center;
+	font-size: 163px;
+	line-height: 200px;
+}
+
+#aa {
+	border-right:2px solid #000;
+	border-bottom:2px solid #000;
+}
+#ab {
+	border-right:2px solid #000;
+	border-bottom:2px solid #000;
+}
+#ac {
+	border-bottom:2px solid #000;
+}
+#ba, #bb  {
+	border-right:2px solid #000;
+	border-bottom:2px solid #000;
+}
+#bc  {
+	border-bottom:2px solid #000;
+}
+#ca {
+	border-right:2px solid #000;
+}
+#cb {
+	border-right:2px solid #000;
+}
+#solved {
+	position: absolute;
+	width: 530px;
+	left: 0;
+	margin:auto;
+	right: 0;
+	top: 100px;
+	height: 8px;
+	background: #000;
+	display:none;
+}
+#solvedH {
+	position: absolute;
+	width: 8px;
+	left: 95px;
+	right: 0;
+	top: 38px;
+	height: 530px;
+	background: #000;
+	display:none;
+}
+
+#rotate {
+	position: absolute;
+	width: 8px;
+	left: 300px;
+	right: 0px;
+	top: -70px;
+	height: 751px;
+	background: none repeat scroll 0% 0% #000;
+	transform: rotateZ(45deg);
+	display:none;
+}
+#menu {
+	background: #111;
+	width: 296px;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	color:#eee;
+}
+
+.content {
+	margin:12px;
+}
+
+button {
+	background:#222;
+	color:#CCC;
+	padding: 5px 0px;
+	width:100px;
+	border: 2px solid #222;
+	border-bottom: 2px solid #555;
+}
+
+button:hover {
+	border-bottom: 2px solid #0e0;
+}
+.red:hover {
+	border-bottom: 2px solid #e00 !important;
+}
+button:active {
+	background:#444;
+	border-left:2px solid #444;
+	border-right:2px solid #444;
+	border-top:2px solid #444;
+
+}
+
+.button {
+	height: 70px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 80px;
+}
+#credit:hover {
+	text-decoration:underline;
+}

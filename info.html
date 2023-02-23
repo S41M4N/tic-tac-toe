@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8" />
+		<style>
+		@keyframes in {
+		from { opacity:0; }
+		to { opacity: 1;  }
+	}
+	@-webkit-keyframes in {
+		from { opacity:0; }
+		to { opacity: 1; }
+	}
+			body {
+				margin:0;
+				padding:0;
+				font-family:calibri;
+				font-size: 20px;
+			}
+			#main {
+				position:absolute;
+				width:500px;
+				height:276px;
+				background: linear-gradient(#ededed,#fafafa);
+				background: -webkit-linear-gradient(#ededed,#fafafa);
+				top:0;bottom:0;left:0;right:0;
+				margin:auto;
+				box-shadow: 0px 11px 20px 0px rgba(0, 0, 0, 0.27);
+				transition:0.4s;
+				-webkit-transition:0.4s;
+		animation:in 0.4s;
+		-webkit-animation:in 0.4s;
+			}
+			#child {
+				width:100%;
+				margin-top:33px;
+			}
+			input {
+				width:92%;
+				margin:0 auto;
+				padding:10px 5px;
+				background:#f8f8f8;
+				box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+				margin-bottom:15px;
+				border: 1px solid #999;
+				border-radius: 3px;
+				transition: all 0.4s ease 0s;
+			}
+			input:focus {
+				border-color:#66afe9;
+				outline:0;
+				box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+				-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+		 }
+		 #btn {
+			width: 94%;
+			border-radius: 3px;
+			transition: all 0.4s ease 0s;
+		margin-top: 5px;
+		padding: 9px 0px;
+		background: none repeat scroll 0% 0% #333;
+		border: medium none;
+		color: #EEE;
+		 }
+	#cross {
+		color: #999;
+		position: absolute;
+		right: 10px;
+		top: 0px;
+		padding: 5px;
+		cursor:default;
+	}
+	#cross:hover {
+		color:#555;
+	}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+		<span id="cross" onclick="exit()";>x</span>
+			<div align="center" id="child">
+			<b>Tic Tac Toe</b><br /><br />
+				<input type="text" placeholder="First Player Name" id="p1" onkeydown="check();"  />
+				<br />
+				<input type="text" placeholder="Second Player Name" id="p2" onkeydown="check();" />
+				<input type="submit" id="btn" onclick="setName()" value="Enter Player Name" />
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	var x,y;
+	function check() {
+			 x = document.getElementById('p1').value;
+			 y = document.getElementById('p2').value;
+			if((x != '') && (y != '')){
+				document.getElementById('btn').style.background="#079640";
+				document.getElementById('btn').value = "Continue";
+			}
+			else {
+				document.getElementById('btn').style.background="#333";
+				document.getElementById('btn').value = "Enter Player Name";
+			}
+	}
+	window.addEventListener("keyup", function(e){ 
+		var kc = e.keyCode ? e.keyCode : e.charCode;
+		if(kc == 13){
+			if((x != '') && (y != '')) {
+				x = document.getElementById('p1').value;
+				y = document.getElementById('p2').value;
+				localStorage.setItem("PlayerOneName",x);
+				localStorage.setItem("PlayerTwoName",y);
+				document.getElementById('main').style.animation="none";
+				document.getElementById('main').style.opacity="0";
+				setTimeout(function(){
+				document.location.href="index.html";
+				},700);
+			}
+		}
+		}, false);
+		
+	function setName() {
+		if((x != '') && (y != '')) {
+			x = document.getElementById('p1').value;
+		y = document.getElementById('p2').value;
+		localStorage.setItem("PlayerOneName",x);
+		localStorage.setItem("PlayerTwoName",y);
+		document.getElementById('main').style.animation="none";
+		document.getElementById('main').style.opacity="0";
+		setTimeout(function(){
+		document.location.href="index.html";
+		},700);
+		} 
+	}
+	
+	function exit() {
+		var gui = require('nw.gui');
+		var win = gui.Window.get();
+		win.close();
+	}
+</script>
